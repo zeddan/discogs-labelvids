@@ -5,10 +5,52 @@
   align-items: center;
 }
 
+#search-container {
+  display: flex;
+  width: 640px;
+  padding: 20px;
+}
+
+#search-input {
+  height: 70px;
+  width: 80%;
+  display: block;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1em;
+}
+
+#search-button {
+  background: grey;
+  height: 70px;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-button:hover {
+  cursor: pointer;
+}
+
 #list {
-  height: 400px;
+  /* height: 400px; */
   background: aquamarine;
   width: 640px;
   text-align: center;
   display: block;
+}
+
+.list-item {
+  height: 70px;
+  background: bisque;
+  border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-item__text:hover {
+  cursor: pointer;
+  color: blue;
 }
