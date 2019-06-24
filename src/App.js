@@ -59,6 +59,7 @@ class App extends Component {
   }
 
   search = async () => {
+    this.setState({ videos: [] })
     const id = document.getElementById("search-input").value
     const res = await axios.get(`https://api.discogs.com/labels/${id}/releases`)
     const releases = res.data.releases.map((release) => {
@@ -70,7 +71,6 @@ class App extends Component {
           this.setState({
             videos: [...this.state.videos, video]
           });
-        // console.log(this.state.videos)
         })
       });
     });
