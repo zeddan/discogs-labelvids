@@ -34,11 +34,11 @@
 }
 
 #list {
-  /* height: 400px; */
-  background: aquamarine;
+  height: 400px;
   width: 640px;
   text-align: center;
   display: block;
+  overflow: scroll;
 }
 
 .list-item {
