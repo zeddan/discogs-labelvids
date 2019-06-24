@@ -76,7 +76,16 @@ class App extends Component {
     });
   }
 
+  setThumbnailBg = (uri) => {
+    let id = uri.replace("https://www.youtube.com/watch?v=", "")
+    let imgUrl = `https://img.youtube.com/vi/${id}/hqdefault.jpg`
+    return ({
+      backgroundImage: 'url(' + imgUrl + ')'
+    })
+  }
+
   render() {
+    var divStyle = {  }
     return (
       <div className="App">
         <div id="search-container">
@@ -90,6 +99,8 @@ class App extends Component {
             this.state.videos.map((video, i) => {
               return (
                 <div className="list-item" key={i}>
+                  <div className="list-item__thumbnail"
+                    style={ this.setThumbnailBg(video.uri) }></div>
                   <div className="list-item__text"
                     onClick={() => {this.play(video.uri)}}>
                     { video.title }
