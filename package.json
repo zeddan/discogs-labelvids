@@ -2,6 +2,7 @@
   "name": "discogs-labelvids",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://robinsaaf.se/discogs-labelvids/build",
   "dependencies": {
     "axios": "^0.19.0",
     "disconnect": "^1.2.1",
