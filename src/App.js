@@ -1,4 +1,3 @@
-// import React from 'react';
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -12,7 +11,6 @@ class App extends Component {
       videos: [],
       currentVideo: ''
     }
-
 
     window['onYouTubeIframeAPIReady'] = (e) => {
       this.YT = window['YT']
