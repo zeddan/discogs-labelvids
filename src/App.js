@@ -20,30 +20,8 @@ class App extends Component {
         videoId: 'M7lc1UVf-VE',
         height: '390',
         width: '640',
-        events: {
-          // 'onStateChange': this.onPlayerStateChange.bind(this),
-          // 'onError': this.onPlayerError.bind(this),
-          'onReady': (e) => {}
-        }
       })
     }
-  }
-
-  async componentDidMount() {
-    // const res = await axios.get('https://api.discogs.com/labels/869700/releases')
-    // const releases = res.data.releases.map((release) => {
-    //   return release.resource_url;
-    // });
-    // releases.forEach((releaseUrl) => {
-    //   axios.get(releaseUrl).then((res) => {
-    //     res.data.videos.forEach((video) => {
-    //       this.setState({
-    //         videos: [...this.state.videos, video]
-    //       });
-    //     // console.log(this.state.videos)
-    //     })
-    //   });
-    // });
   }
 
   init() {
