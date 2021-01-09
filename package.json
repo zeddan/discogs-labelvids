@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://robinsaaf.se/discogs-labelvids/build",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "css-loader": "^3.4.0",
     "disconnect": "^1.2.1",
     "node-sass": "^4.0.0",
