@@ -40,10 +40,10 @@ class App extends Component {
   }
 
   play = (uri) => {
-    let id = uri.replace("https://www.youtube.com/watch?v=", "")
+    let videoId = uri.replace("https://www.youtube.com/watch?v=", "")
     let nowPlayingIdx = this.state.videos.findIndex((e) => e.uri === uri)
     this.setState({ nowPlayingIdx })
-    this.player.loadVideoById({ videoId: id })
+    this.player.loadVideoById({ videoId })
   }
 
   search = async () => {
