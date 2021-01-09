@@ -38,14 +38,14 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 70px;
-}
 
-#search-button:hover {
-  cursor: pointer;
-}
+  &:hover {
+    cursor: pointer;
+  }
 
-#search-button:active {
-  background: #b8b8b8;
+  &:active {
+    background: #b8b8b8;
+  }
 }
 
 #list {
@@ -63,16 +63,17 @@ body {
   justify-content: start;
   align-items: center;
   padding-left: 1em;
+
+  &__text:hover {
+    cursor: pointer;
+    color: #6d6d6d
+  }
+
+  &__thumbnail {
+    width: 60px;
+    height: 45px;
+    background-size: 100% 100%;
+    margin-right: 1em;
+  }
 }
 
-.list-item__text:hover {
-  cursor: pointer;
-  color: #6d6d6d
-}
-
-.list-item__thumbnail {
-  width: 60px;
-  height: 45px;
-  background-size: 100% 100%;
-  margin-right: 1em;
-}
