@@ -49,7 +49,7 @@ body {
 }
 
 #list {
-  height: 400px;
+  height: 350px;
   width: 640px;
   text-align: center;
   display: block;
@@ -77,3 +77,16 @@ body {
   }
 }
 
+#player-control {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  height: 2em;
+  align-items: center;
+  padding-top: 1em;
+
+  div {
+    cursor: pointer;
+    color: #6d6d6d
+  }
+}

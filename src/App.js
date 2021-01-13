@@ -9,7 +9,7 @@ class App extends Component {
     this.init()
     this.state = {
       videos: [],
-      currentlyPlayingIndex: -1
+      nowPlayingIdx: -1
     }
 
     window['onYouTubeIframeAPIReady'] = (e) => {
@@ -27,8 +27,7 @@ class App extends Component {
 
   onPlayerStateChange(e) {
     if (e.data === this.YT.PlayerState.ENDED) {
-      let nextIdx = (this.state.nowPlayingIdx + 1) % this.state.videos.length
-      this.play(this.state.videos[nextIdx].uri)
+      this.playNext()
     }
   }
 
@@ -46,8 +45,20 @@ class App extends Component {
     this.player.loadVideoById({ videoId })
   }
 
+  playNext = () => {
+    let nextIdx = (this.state.nowPlayingIdx + 1) % this.state.videos.length
+    this.play(this.state.videos[nextIdx].uri)
+  }
+
+  playPrevious = () => {
+    let prevIdx = this.state.nowPlayingIdx - 1
+    if (prevIdx < 0)
+      prevIdx = this.state.videos.length - 1
+    this.play(this.state.videos[prevIdx].uri)
+  }
+
   search = async () => {
-    this.setState({ videos: [] })
+    this.setState({ videos: [], nowPlayingIdx: -1 })
 
     const token = 'a_discogs_token'
     const id = document.getElementById("search-input").value
@@ -89,6 +100,14 @@ class App extends Component {
           <div id="search-button" onClick={this.search}>Search</div>
         </div>
         <div id="player"></div>
+        <div id="player-control">
+          <div onClick={
+            this.state.videos.length > 0 ? this.playPrevious : undefined
+            }>&lt;&lt;</div>
+          <div onClick={
+            this.state.videos.length > 0 ? this.playNext : undefined
+            }>&gt;&gt;</div>
+        </div>
         <div id="list">
           { 
             this.state.videos.length > 0 ?
