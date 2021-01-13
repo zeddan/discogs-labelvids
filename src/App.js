@@ -38,6 +38,23 @@ class App extends Component {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
   }
 
+  onKeyDown = (e) => {
+    if (e.ctrlKey && e.key == "p" && this.state.videos.length > 0) {
+      this.playPrevious();
+    }
+    if (e.ctrlKey && e.key == "n" && this.state.videos.length > 0) {
+      this.playNext();
+    }
+  }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this.onKeyDown, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.onKeyDown, false);
+  }
+
   play = (uri) => {
     let videoId = uri.replace("https://www.youtube.com/watch?v=", "")
     let nowPlayingIdx = this.state.videos.findIndex((e) => e.uri === uri)
