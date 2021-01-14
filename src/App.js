@@ -65,6 +65,7 @@ class App extends Component {
     let nowPlayingIdx = this.state.videos.findIndex((e) => e.uri === uri)
     this.setState({ nowPlayingIdx })
     this.player.loadVideoById({ videoId })
+    this.scrollToPlaying()
   }
 
   playNext = () => {
@@ -81,6 +82,15 @@ class App extends Component {
 
   isPlaying = (idx) => {
     return this.state.nowPlayingIdx === idx
+  }
+
+  scrollToPlaying = () => {
+    setTimeout(() => {
+      let pos = document.getElementsByClassName("now-playing")[0]
+                        .parentElement
+                        .offsetTop
+      document.getElementById("list").scrollTop = pos
+    }, 20);
   }
 
   search = async () => {

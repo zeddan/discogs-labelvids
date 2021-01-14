@@ -58,6 +58,8 @@ input:focus, textarea:focus{
   text-align: center;
   display: block;
   overflow: scroll;
+  position: relative;
+  scroll-behavior: smooth;
 }
 
 .list-item {
