@@ -74,6 +74,10 @@ class App extends Component {
     this.play(this.state.videos[prevIdx].uri)
   }
 
+  isPlaying = (idx) => {
+    return this.state.nowPlayingIdx === idx
+  }
+
   search = async () => {
     this.setState({ videos: [], nowPlayingIdx: -1 })
 
@@ -133,7 +137,11 @@ class App extends Component {
                 <div className="list-item" key={i}>
                   <div className="list-item__thumbnail"
                     style={ this.setThumbnailBg(video.uri) }></div>
-                  <div className="list-item__text"
+                  <div
+                    className={
+                      `list-item__text
+                       ${this.isPlaying(i) ? "now-playing" : ""}`
+                    }
                     onClick={() => {this.play(video.uri)}}>
                     { video.title }
                   </div>
