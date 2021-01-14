@@ -45,6 +45,11 @@ class App extends Component {
     if (e.ctrlKey && e.key == "n" && this.state.videos.length > 0) {
       this.playNext();
     }
+    if (e.key === "Enter") {
+      if (document.activeElement === document.getElementById('search-input')) {
+        this.search(document.getElementById('search-input').uri)
+      }
+    }
   }
 
   componentDidMount(){
