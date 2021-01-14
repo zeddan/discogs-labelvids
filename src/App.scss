@@ -95,6 +95,10 @@ input:focus, textarea:focus{
 
   div {
     cursor: pointer;
-    color: #6d6d6d
+    color: #6d6d6d;
+
+    &:hover {
+      color: #6d6d6daa;
+    }
   }
 }
