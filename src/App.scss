@@ -35,13 +35,14 @@ input:focus, textarea:focus{
 }
 
 #search-button {
-  background: lightgray;
+  background: #373737;
   height: 50px;
   width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 70px;
+  border-radius: 50px;
+  color: #dfdfdf;
 
   &:hover {
     cursor: pointer;
