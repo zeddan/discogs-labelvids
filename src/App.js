@@ -53,6 +53,12 @@ class App extends Component {
   }
 
   componentDidMount(){
+    const url = new URL(window.location.href);
+    const labelId = parseInt(url.pathname.replace(/\D+/g, ""));
+    if (labelId) {
+      document.getElementById("search-input").value = labelId;
+      this.search(labelId);
+    }
     document.addEventListener("keydown", this.onKeyDown, false);
   }
 
@@ -93,12 +99,11 @@ class App extends Component {
     }, 20);
   }
 
-  search = async () => {
+  search = async (labelId) => {
     this.setState({ videos: [], nowPlayingIdx: -1 })
 
     const token = 'a_discogs_token'
-    const id = document.getElementById("search-input").value
-    const res = await axios.get(`https://api.discogs.com/labels/${id}/releases?${token}`)
+    const res = await axios.get(`https://api.discogs.com/labels/${labelId}/releases?${token}`)
     const releases = res.data.releases.map((release) => {
       return release.resource_url;
     });
@@ -118,6 +123,12 @@ class App extends Component {
     });
   }
 
+  onSearchButtonClicked = () => {
+    const labelId = document.getElementById("search-input").value
+    this.search(labelId);
+    window.history.pushState("", "", labelId);
+  }
+
   videoExists = (uri) => this.state.videos.find(e => e.uri === uri)
 
   setThumbnailBg = (uri) => {
@@ -133,7 +144,7 @@ class App extends Component {
       <div className="App">
         <div id="search-container">
           <input id="search-input" placeholder="Enter label's discogs-id"></input>
-          <div id="search-button" onClick={this.search}>Search</div>
+          <div id="search-button" onClick={this.onSearchButtonClicked}>Search</div>
         </div>
         <div id="player"></div>
         <div id="player-control">
