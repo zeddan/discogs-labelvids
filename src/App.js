@@ -20,6 +20,7 @@ class App extends Component {
         width: '640',
         events: {
           onStateChange: this.onPlayerStateChange.bind(this),
+          onError: this.onPlayerError.bind(this)
         }
       })
     }
@@ -29,6 +30,10 @@ class App extends Component {
     if (e.data === this.YT.PlayerState.ENDED) {
       this.playNext()
     }
+  }
+
+  onPlayerError(e) {
+    this.playNext();
   }
 
   init() {
