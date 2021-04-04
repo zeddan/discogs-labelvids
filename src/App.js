@@ -52,7 +52,7 @@ class App extends Component {
     }
     if (e.key === "Enter") {
       if (document.activeElement === document.getElementById('search-input')) {
-        this.search(document.getElementById('search-input').uri)
+        this.search(document.getElementById('search-input').value);
       }
     }
   }
