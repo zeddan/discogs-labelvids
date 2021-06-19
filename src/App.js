@@ -55,6 +55,9 @@ class App extends Component {
         this.search(document.getElementById('search-input').value);
       }
     }
+    if (e.key === "q" || e.key === "Q") {
+      window.location.href = "https://robinsaaf.se/discogs-artistvids/";
+    }
   }
 
   componentDidMount(){
