@@ -56,7 +56,8 @@ class App extends Component {
       }
     }
     if (e.key === "q" || e.key === "Q") {
-      window.location.href = "https://robinsaaf.se/discogs-artistvids/";
+      const origin = new URL(window.location.href).origin;
+      window.location.href = `${origin}/discogs-artistvids/`;
     }
   }
 
