@@ -112,7 +112,12 @@ class App extends Component {
     this.setState({ videos: [], nowPlayingIdx: -1 })
 
     const token = 'a_discogs_token'
-    const res = await axios.get(`https://api.discogs.com/labels/${labelId}/releases?${token}`)
+    const res = await axios.get(`https://api.discogs.com/labels/${labelId}/releases?${token}`).catch(this.logError);
+
+    if (!res) {
+      return false;
+    }
+
     const releases = res.data.releases.map((release) => {
       return release.resource_url;
     });
@@ -128,8 +133,25 @@ class App extends Component {
             });
           }
         })
-      })
+      }).catch(this.logError);
     });
+  }
+
+  logError = (error) => {
+    if (error.response) {
+      console.error("discogs_labelvids: Request made and server responded")
+      console.error(error.response.data);
+      console.error(error.response.status);
+      console.error(error.response.headers);
+    } else if (error.request) {
+      console.error("discogs_labelvids: Request was made but no response was received")
+      console.error(error.request);
+      console.error(error.message);
+      alert(`${error.message}: Probably too many requests was sent to Discogs too fast`);
+    } else {
+      console.error("discogs_labelvids: Something happened in setting up the request that triggered an Error")
+      console.error('Error', error.message);
+    }
   }
 
   onSearchButtonClicked = () => {
