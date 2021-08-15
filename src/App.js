@@ -18,8 +18,8 @@ class App extends Component {
       this.YT = window['YT']
       this.player = new window['YT'].Player('player', {
         videoId: '03gkNcYKj3k',
-        height: '390',
         width: '640',
+        height: '360',
         events: {
           onStateChange: this.onPlayerStateChange.bind(this),
           onError: this.onPlayerError.bind(this)

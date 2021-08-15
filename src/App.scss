@@ -66,8 +66,8 @@ input:focus, textarea:focus{
 }
 
 #list {
-  height: 350px;
   width: 640px;
+  height: calc(70px * 5);
   text-align: center;
   display: block;
   overflow: scroll;
