@@ -9,7 +9,9 @@ class App extends Component {
     this.init()
     this.state = {
       videos: [],
-      nowPlayingIdx: -1
+      nowPlayingIdx: -1,
+      labelName: "",
+      labelUrl: ""
     }
 
     window['onYouTubeIframeAPIReady'] = (e) => {
@@ -112,6 +114,16 @@ class App extends Component {
     this.setState({ videos: [], nowPlayingIdx: -1 })
 
     const token = 'a_discogs_token'
+
+    axios.get(`https://api.discogs.com/labels/${labelId}?${token}`)
+      .then((label) => {
+        this.setState({
+          labelName: label.data.name,
+          labelUrl: label.data.uri
+        })
+      })
+      .catch(this.logError);
+
     const res = await axios.get(`https://api.discogs.com/labels/${labelId}/releases?${token}`).catch(this.logError);
 
     if (!res) {
@@ -178,14 +190,16 @@ class App extends Component {
           <div id="search-button" onClick={this.onSearchButtonClicked}>Search</div>
         </div>
         <div id="player"></div>
-        <div id="player-control">
-          <div onClick={
-            this.state.videos.length > 0 ? this.playPrevious : undefined
-            }>&lt;&lt;</div>
-          <div onClick={
-            this.state.videos.length > 0 ? this.playNext : undefined
-            }>&gt;&gt;</div>
-        </div>
+        {
+          this.state.videos.length > 0 ?
+          <div id="player-control">
+            <div onClick={this.playPrevious}>&lt;&lt;</div>
+            <a href={this.state.labelUrl} target="_blank" rel="noopener noreferrer">
+              <img id="discogs-icon" title={this.state.labelName} alt={this.state.labelName} src="images/discogs.svg" ></img>
+            </a>
+            <div onClick={this.playNext}>&gt;&gt;</div>
+          </div> : <div></div>
+        }
         <div id="list">
           { 
             this.state.videos.length > 0 ?

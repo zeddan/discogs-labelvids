@@ -121,3 +121,11 @@ input:focus, textarea:focus{
     }
   }
 }
+
+#discogs-icon {
+  width: 1.75em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
