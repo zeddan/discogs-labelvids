@@ -9,9 +9,9 @@ class App extends Component {
     this.init()
     this.state = {
       videos: [],
+      urls: {},
       nowPlayingIdx: -1,
-      labelName: "",
-      labelUrl: ""
+      currentUrl: ""
     }
 
     window['onYouTubeIframeAPIReady'] = (e) => {
@@ -80,7 +80,8 @@ class App extends Component {
   play = (uri) => {
     let videoId = uri.replace("https://www.youtube.com/watch?v=", "")
     let nowPlayingIdx = this.state.videos.findIndex((e) => e.uri === uri)
-    this.setState({ nowPlayingIdx })
+    let currentUrl = this.state.urls[videoId]
+    this.setState({ nowPlayingIdx, currentUrl })
     this.player.loadVideoById({ videoId })
     this.scrollToPlaying()
   }
@@ -114,16 +115,6 @@ class App extends Component {
     this.setState({ videos: [], nowPlayingIdx: -1 })
 
     const token = 'a_discogs_token'
-
-    axios.get(`https://api.discogs.com/labels/${labelId}?${token}`)
-      .then((label) => {
-        this.setState({
-          labelName: label.data.name,
-          labelUrl: label.data.uri
-        })
-      })
-      .catch(this.logError);
-
     const res = await axios.get(`https://api.discogs.com/labels/${labelId}/releases?${token}`).catch(this.logError);
 
     if (!res) {
@@ -140,8 +131,13 @@ class App extends Component {
           return
         res.data.videos.forEach((video) => {
           if (!this.videoExists(video.uri)) {
+            const videoId = video.uri.replace("https://www.youtube.com/watch?v=", "")
             this.setState({
-              videos: [...this.state.videos, video]
+              videos: [...this.state.videos, video],
+              urls: {
+                ...this.state.urls,
+                [videoId]: res.data.uri
+              }
             });
           }
         })
@@ -194,8 +190,8 @@ class App extends Component {
           this.state.videos.length > 0 ?
           <div id="player-control">
             <div onClick={this.playPrevious}>&lt;&lt;</div>
-            <a href={this.state.labelUrl} target="_blank" rel="noopener noreferrer">
-              <img id="discogs-icon" title={this.state.labelName} alt={this.state.labelName} src="images/discogs.svg" ></img>
+            <a href={this.state.currentUrl} target="_blank" rel="noopener noreferrer">
+              <img id="discogs-icon" title={this.state.currentUrl} alt={this.state.currentUrl} src="images/discogs.svg" ></img>
             </a>
             <div onClick={this.playNext}>&gt;&gt;</div>
           </div> : <div></div>
