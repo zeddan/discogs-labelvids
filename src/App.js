@@ -132,8 +132,9 @@ class App extends Component {
         res.data.videos.forEach((video) => {
           if (!this.videoExists(video.uri)) {
             const videoId = video.uri.replace("https://www.youtube.com/watch?v=", "")
+            video["released"] = res.data.released
             this.setState({
-              videos: [...this.state.videos, video],
+              videos: this.sortVideos([...this.state.videos, video], res.data.tracklist),
               urls: {
                 ...this.state.urls,
                 [videoId]: res.data.uri
@@ -142,6 +143,18 @@ class App extends Component {
           }
         })
       }).catch(this.logError);
+    });
+  }
+
+  sortVideos = (videos, tracklist) => {
+    return videos.sort((a, b) => {
+      // Some videos has release dates such as "2014-02-00"
+      const releaseDate1 = new Date(a.released.replaceAll("-00", "-01"))
+      const releaseDate2 = new Date(b.released.replaceAll("-00", "-01"))
+      const trackIndex1 = tracklist.findIndex(t => a.title.toLowerCase().includes(t.title.toLowerCase()))
+      const trackIndex2 = tracklist.findIndex(t => b.title.toLowerCase().includes(t.title.toLowerCase()))
+
+      return releaseDate1 - releaseDate2 || trackIndex1 - trackIndex2
     });
   }
 
