@@ -13,9 +13,10 @@ body {
   color: $black;
 }
 
-input:focus, textarea:focus{
+input:focus,
+textarea:focus {
   outline: none;
- }
+}
 
 .App {
   display: flex;
